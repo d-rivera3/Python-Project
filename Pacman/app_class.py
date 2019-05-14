@@ -34,6 +34,8 @@ class App:
                 self.playing_events()
                 self.playing_update()
                 self.playing_draw()
+            if self.state == 'reset':
+                self.playing_reset()
             self.clock.tick(FPS)
         pygame.quit()
         sys.exit()
@@ -119,6 +121,11 @@ class App:
                 if event.key == pygame.K_DOWN:
                     self.player.move(vec(0, 1))
 
+        #Ghost runs into player
+        for enemy in self.enemies:
+            if self.player.grid_pos // 2 == enemy.grid_pos // 2:
+                self.player.lives -= 1
+                self.state = 'reset'
 
     def playing_update(self):
         self.player.update()
@@ -137,6 +144,30 @@ class App:
             enemy.draw()
         pygame.display.update()
 
+    def playing_reset(self):
+        if self.player.lives < 1:
+            self.state = 'playing'
+            self.screen.fill(BLACK)
+            pygame.display.update()
+            print(self.e_pos)
+            self.e_pos.clear()
+            self.enemies.clear()
+            origin = ORIGINAL_E_POS
+            print("Original e pos: ", origin)
+            for pos in origin:
+                self.e_pos.append(pos)
+            print(self.e_pos)
+            self.make_enemies()
+            print(self.enemies)
+            pygame.time.delay(100)
+            self.run()
+        else:
+            self.state = 'game_over'
+            self.screen.fill(BLACK)
+            self.draw_text('GAME OVER', self.screen, [WIDTH // 2, HEIGHT // 2 - 50],
+                           START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
+            self.intro_events()
+            pygame.display.update()
 
     def draw_coins(self):
         for coin in self.coins:

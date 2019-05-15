@@ -36,6 +36,8 @@ class App:
                 self.playing_draw()
             if self.state == 'reset':
                 self.playing_reset()
+            if self.state == 'game_over':
+                break
             self.clock.tick(FPS)
         pygame.quit()
         sys.exit()
@@ -124,7 +126,7 @@ class App:
         #Ghost runs into player
         for enemy in self.enemies:
             if self.player.grid_pos // 2 == enemy.grid_pos // 2:
-                self.player.lives -= 1
+                print(self.player.grid_pos, "and ", enemy.grid_pos )
                 self.state = 'reset'
 
     def playing_update(self):
@@ -145,13 +147,17 @@ class App:
         pygame.display.update()
 
     def playing_reset(self):
-        if self.player.lives < 1:
+        if self.player.lives > 1:
             self.state = 'playing'
             self.screen.fill(BLACK)
+            self.player.lives -= 1
+            self.draw_text('LIVES LEFT: {}'.format(self.player.lives - 1), self.screen, [WIDTH // 2, HEIGHT // 2 - 50],
+                           START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
             pygame.display.update()
             print(self.e_pos)
             self.e_pos.clear()
             self.enemies.clear()
+            pygame.time.delay(1000)
             origin = ORIGINAL_E_POS
             print("Original e pos: ", origin)
             for pos in origin:
@@ -159,15 +165,15 @@ class App:
             print(self.e_pos)
             self.make_enemies()
             print(self.enemies)
-            pygame.time.delay(100)
+
             self.run()
         else:
             self.state = 'game_over'
             self.screen.fill(BLACK)
             self.draw_text('GAME OVER', self.screen, [WIDTH // 2, HEIGHT // 2 - 50],
                            START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
-            self.intro_events()
             pygame.display.update()
+            pygame.time.delay(1000)
 
     def draw_coins(self):
         for coin in self.coins:

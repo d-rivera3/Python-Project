@@ -195,10 +195,7 @@ class App:
 
     def music(self):
         if pygame.mixer.music.get_busy() == False:
-            if random.randint(0, 1) == 0:
-                pygame.mixer.music.load('Pacman/bgm 1.mp3')
-            else:
-                pygame.mixer.music.load('Pacman/bgm 2.mp3')
+            pygame.mixer.music.load('Pacman/bgm 1.mp3')
             pygame.mixer.music.play(-1, 0.0)
         else:
             pass

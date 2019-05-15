@@ -127,10 +127,14 @@ class App:
 
         #Ghost runs into player
         for enemy in self.enemies:
-            if self.player.grid_pos // 2 == enemy.grid_pos // 2:
+            if self.player.grid_pos == enemy.grid_pos:
                 print(self.player.grid_pos, "and ", enemy.grid_pos )
                 self.state = 'reset'
 
+        #Coins are gone
+        if len(self.coins) == 0:
+            print("Hello")
+        print(len(self.coins))
     def playing_update(self):
         self.player.update()
         for enemy in self.enemies:
@@ -155,6 +159,8 @@ class App:
             self.player.lives -= 1
             self.draw_text('LIVES LEFT: {}'.format(self.player.lives - 1), self.screen, [WIDTH // 2, HEIGHT // 2 - 50],
                            START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
+            self.draw_text('COINS LEFT: {}'.format(len(self.coins)), self.screen, [WIDTH // 2, HEIGHT // 2 + 50],
+                           START_TEXT_SIZE, (44, 167, 198), START_FONT, centered=True)
             pygame.display.update()
             print(self.e_pos)
             self.e_pos.clear()
@@ -174,6 +180,8 @@ class App:
             self.screen.fill(BLACK)
             self.draw_text('GAME OVER', self.screen, [WIDTH // 2, HEIGHT // 2 - 50],
                            START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
+            self.draw_text('COINS LEFT: {}'.format(len(self.coins)), self.screen, [WIDTH // 2, HEIGHT // 2 + 50],
+                       START_TEXT_SIZE, (44, 167, 198),START_FONT, centered=True)
             pygame.display.update()
             pygame.time.delay(1000)
 

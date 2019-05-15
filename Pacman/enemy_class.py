@@ -1,5 +1,5 @@
 import pygame, random
-from settings import *
+from Pacman.settings import *
 vec = pygame.math.Vector2
 
 class Enemy:

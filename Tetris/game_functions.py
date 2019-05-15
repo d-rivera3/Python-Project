@@ -2,9 +2,9 @@ import pygame
 import random
 import sys
 
-from board_logic import *
+from Tetris.board_logic import *
 from pygame.locals import *
-from settings import *
+from Tetris.settings import *
 
 
 def makeTextObjs(text, font, color):

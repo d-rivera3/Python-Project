@@ -1,4 +1,4 @@
-from settings import  *
+from Tetris.settings import  *
 
 def addToBoard(board, piece):
     # fill in the board based on piece's location, shape, and rotation

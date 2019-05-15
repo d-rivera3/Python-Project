@@ -1,9 +1,9 @@
 import random, time, pygame, sys
 from pygame.locals import *
-from settings import  *
-from board_logic import *
-from game_functions import *
-from Tetris import *
+from Tetris.settings import  *
+from Tetris.board_logic import *
+from Tetris.game_functions import *
+from Tetris.Tetris import *
 
 
 '''Draw functions'''

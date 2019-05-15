@@ -1,11 +1,12 @@
 import pygame, sys
-from settings import *
-from player_class import *
-from enemy_class import *
+from Pacman.settings import *
+from Pacman.player_class import *
+from Pacman.enemy_class import *
+from Tetris.Tetris import *
 pygame.init() #initializes pygame
 vec = pygame.math.Vector2 #Holds a position, velocity,
 
-
+pygame.display.set_caption('Pacman')
 
 class App:
     def __init__(self):
@@ -39,8 +40,9 @@ class App:
             if self.state == 'game_over':
                 break
             self.clock.tick(FPS)
+        pygame.display.quit()
         pygame.quit()
-        sys.exit()
+        #sys.exit()
 
 #Helper functions
     def draw_text(self, words, screen, pos, size, color, font_name, centered = False):
@@ -53,12 +55,12 @@ class App:
         screen.blit(text, pos)
 
     def load(self):
-        self.background = pygame.image.load('maze.png')
+        self.background = pygame.image.load('Pacman/maze.png')
         self.background = pygame.transform.scale(self.background, (MAZE_WIDTH, MAZE_HEIGHT))
 
         #Opening walls file
         #Creating walls list with coordiantes of walls
-        with open('walls.txt', 'r') as file:
+        with open('Pacman/walls.txt', 'r') as file:
             for yidx, line in enumerate(file):
                for xidx, char in enumerate(line):
                    if char == '1':

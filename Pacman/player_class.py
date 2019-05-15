@@ -1,6 +1,6 @@
 import pygame
 from pygame.math import Vector2 as vec
-from settings import *
+from Pacman.settings import *
 class Player:
     def __init__(self, app, pos):
         self.app = app

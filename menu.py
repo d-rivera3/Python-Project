@@ -5,6 +5,9 @@ import pygame
 
 pygame.init()
 
+pygame.mixer.music.load('screen_select.mp3')
+pygame.mixer.music.play(-1,0)
+
 def draw_text(words, screen, pos, size, color, font_name, centered=False):
     font = pygame.font.SysFont(font_name, size)
     text = font.render(words, False, color)
@@ -57,9 +60,11 @@ while True:
             tetris = True
             break
         if event.type == pygame.QUIT:
+            pygame.mixer.music.stop()
             pygame.quit()
             sys.exit()
     if pacman or tetris:
+        pygame.mixer.music.stop()
         break
 
 if pacman:

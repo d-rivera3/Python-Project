@@ -27,6 +27,7 @@ class App:
 
     def run(self):
         while self.running:
+            self.music()
             if self.state == 'intro':
                 self.intro_events()
                 self.intro_update()
@@ -171,6 +172,7 @@ class App:
             self.run()
         else:
             self.state = 'game_over'
+            pygame.mixer.music.stop()
             self.screen.fill(BLACK)
             self.draw_text('GAME OVER', self.screen, [WIDTH // 2, HEIGHT // 2 - 50],
                            START_TEXT_SIZE, (170, 132, 58), START_FONT, centered=True)
@@ -182,3 +184,13 @@ class App:
             pygame.draw.circle(self.screen, WHITE,
                                (int(coin.x * self.cell_width) + self.cell_width // 2 + TOP_BOTTOM_BUFFER // 2,
                                 int(coin.y * self.cell_height + self.cell_height // 2 + TOP_BOTTOM_BUFFER // 2)), 5)
+
+    def music(self):
+        if pygame.mixer.music.get_busy() == False:
+            if random.randint(0, 1) == 0:
+                pygame.mixer.music.load('Pacman/bgm 1.mp3')
+            else:
+                pygame.mixer.music.load('Pacman/bgm 2.mp3')
+            pygame.mixer.music.play(-1, 0.0)
+        else:
+            pass

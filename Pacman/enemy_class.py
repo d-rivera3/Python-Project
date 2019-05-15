@@ -39,11 +39,13 @@ class Enemy:
         if self.personality == "random":
             self.direction = self.get_random_direction()
         if self.personality == "slow":
+            self.speed = 1
             self.direction = self.get_path_direction()
         if self.personality == "speedy":
             self.direction = self.get_path_direction()
         if self.personality == "scared":
             self.direction = self.get_path_direction()
+
 
     def get_path_direction(self):
         next_cell = self.find_next_cell_in_path()
